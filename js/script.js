@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", () => {
   "use sctrict";
   //TABS
   let tab = document.querySelectorAll(".info-header-tab"),
@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  info.addEventListener("click", function(e) {
+  info.addEventListener("click", (e) => {
     if (e.target && e.target.classList.contains("info-header-tab")) {
       for (let i = 0; i < tab.length; i++) {
         if (e.target == tab[i]) {
@@ -32,9 +32,8 @@ window.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-
   //Timer
-  let deadLine = '2020-01-10';
+  let deadLine = '2020-12-31';
 
   function getRemainingTime(endTime) {
     //получаем разницу в милисекундах между "сейчас" и "дедлайном"
@@ -58,9 +57,7 @@ window.addEventListener("DOMContentLoaded", function() {
         seconds = timer.querySelector('.seconds'),
         timeInterval = setInterval(updateClock, 1000);
     //ведущий ноль в таймере
-    function leadZero(n) {
-      return  (n < 10 ? '0' : '') + n;
-    }
+    let leadZero = (n) => (n < 10 ? '0' : '') + n;
 
     function updateClock() {
       let t = getRemainingTime(endTime);
@@ -70,10 +67,41 @@ window.addEventListener("DOMContentLoaded", function() {
       //Если тотал меньше 0 то таймер остановиться
       if(t.total <= 0) {
         clearInterval(timeInterval);
+        hours.textContent = '00';
+        minutes.textContent = '00';
+        seconds.textContent = '00';
       }
     }
   }
 
   setClock('timer', deadLine);
+
+  // Modal
+  let more = document.querySelector('.more'),
+      overlay = document.querySelector('.overlay'),
+      close = document.querySelector('.popup-close');
+  
+  more.addEventListener('click', () => {
+    overlay.style.display = "block";
+    document.body.style.overflow = "hidden";
+  });
+
+  close.addEventListener('click', () => {
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+    more.classList.remove('more-splash');
+  });
+  // Modal in tabs
+  let descrBtn = document.querySelectorAll('.description-btn');
+  console.log(tabContent);
+  function showMore() {
+    for(let i = 0; i < tabContent.length; i++) {
+      descrBtn[i].addEventListener('click', () => {
+        overlay.style.display = "block";
+        document.body.style.overflow = "hidden";
+      })
+    }
+  }
+  showMore();
 
 }); //window end
