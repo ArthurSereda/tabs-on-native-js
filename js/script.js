@@ -93,7 +93,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   // Modal in tabs
   let descrBtn = document.querySelectorAll('.description-btn');
-  console.log(tabContent);
+
   function showMore() {
     for(let i = 0; i < tabContent.length; i++) {
       descrBtn[i].addEventListener('click', () => {
@@ -103,5 +103,31 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
   showMore();
+
+  // Form
+  let message = {
+    loading: "Загрузка",
+    succes: "Спасибо, скоро мы с вами свяжемся",
+    failure: "Что-то пошло не так =("
+  };
+
+  let form = document.querySelector('.main-form'),
+      formInput = form.getElementsByTagName('input'),
+      statusMessage = document.createElement('div');
+
+      statusMessage.classList.add('status');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.appendChild(statusMessage);
+
+    let request = new XMLHttpRequest();
+    request.open('POST', '/server.php');
+    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    let formData = new FormData(form);
+
+    request.send(formData);
+  })
 
 }); //window end
