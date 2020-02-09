@@ -19,4 +19,7 @@
 
 Если понравилось - отметь звездочкой пожалуйста!)
 
+Следующеее что я сделал — это модальное или же POP-UP окно:
+![project image](https://github.com/ArthurSereda/tabs-on-native-js/blob/master/5.jpg)
+
 
